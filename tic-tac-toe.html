@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap');
+
+    * {
+        font-family: 'Prompt', sans-serif;
+    }
+
+    body {
+        color: #ffffff;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 0;
+        background-color: #000000;
+    }
+
+    #choosePlayer {
+        margin-top: 20px;
+    }
+
+    #board {
+        display: grid;
+        grid-template-columns: repeat(3, 80px);
+        grid-template-rows: repeat(3, 80px);
+        gap: 5px;
+        margin-top: 20px;
+    }
+
+    .cell {
+        width: 80px;
+        height: 80px;
+        background-color: #000000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        cursor: pointer;
+        transition: 0.3s;
+        font-weight: 700;
+        color: #000;
+        border: 3px solid #ffffff;
+    }
+
+    .cell:hover {
+        background-color: #ffffff;
+    }
+
+    .X {
+        color: red;
+    }
+
+    .O {
+        color: blue;
+    }
+
+    .cell.winning {
+        background-color: #ffffff;
+    }
+
+    a {
+        color: #007fff;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .chooseX {
+        background-color: red;
+        color: white;
+        font-size: 20px;
+    }
+
+    .chooseO {
+        background-color: blue;
+        color: white;
+        font-size: 20px;
+    }
+
+    .restart {
+        background-color: gray;
+        color: white;
+        font-size: 20px;
+    }
+
+    footer {
+        margin-top: 20px;
+    }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>เกม <span class="X">X</span><span class="O">O</span></h1>
+        
+        <div id="choosePlayer">
+            <p>เลือกผู้เล่นที่เริ่มก่อน:</p>
+            <button class="chooseX" id="chooseX" onclick="setStartingPlayer('X')">เริ่มด้วย X</button>
+            <button class="chooseO" id="chooseO" onclick="setStartingPlayer('O')">เริ่มด้วย O</button>
+        </div>
+
+        <div id="board" style="display: none;">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+        </div>
+        
+        <br>
+        <button class="restart" id="restart" style="display: none;" onclick="resetGame()">เริ่มใหม่</button>
+
+        <footer>
+            <br>
+            <a href="/games"><button>เกมอื่นๆ</button></a> | 
+            <a href="https://forms.gle/XoWbDohMdHJEqsoB6" target="_blank"><button>ข้อเสนอแนะ</button></a> | 
+            <a href="donate" target="_blank"><button>สนันสนุนนักพัฒนา</button></a>
+            <p>Code by Saransak.</p>
+        </footer>
+    </div>
+
+    <script>
+        const board = document.getElementById('board');
+        const cells = document.querySelectorAll('.cell');
+        const restartButton = document.getElementById('restart');
+        let currentPlayer = '';
+        let gameActive = false;
+
+        const winningConditions = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+
+        function setStartingPlayer(player) {
+            currentPlayer = player;
+            gameActive = true;
+            document.getElementById('choosePlayer').style.display = 'none'; // ซ่อนตัวเลือก
+            board.style.display = 'grid'; // แสดงกระดานเกม
+        }
+
+        function handleCellClick(event) {
+            if (!gameActive) return;
+
+            const cell = event.target;
+            if (cell.innerHTML !== '') return;
+
+            cell.innerHTML = currentPlayer;
+            cell.classList.add(currentPlayer);
+
+            if (checkWinner()) {
+                alert(`${currentPlayer} ชนะ!`);
+                gameActive = false;
+                restartButton.style.display = 'block';
+                return;
+            }
+
+            if (Array.from(cells).every(cell => cell.innerHTML !== '')) {
+                alert("ไม่นะ เสมอ!");
+                gameActive = false;
+                restartButton.style.display = 'block';
+                return;
+            }
+
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        }
+
+        function checkWinner() {
+            const winner = winningConditions.find(condition => {
+                return condition.every(index => {
+                    return cells[index].innerHTML === currentPlayer;
+                });
+            });
+
+            if (winner) {
+                highlightWinningCells(winner);
+                return true;
+            }
+            return false;
+        }
+
+        function highlightWinningCells(winner) {
+            winner.forEach(index => {
+                cells[index].classList.add('winning');
+            });
+        }
+
+        function resetGame() {
+            currentPlayer = '';
+            gameActive = false;
+            document.getElementById('choosePlayer').style.display = 'block';
+            board.style.display = 'none';
+            restartButton.style.display = 'none';
+
+            cells.forEach(cell => {
+                cell.innerHTML = '';
+                cell.classList.remove('X', 'O', 'winning');
+            });
+        }
+
+        cells.forEach(cell => cell.addEventListener('click', handleCellClick));
+    </script>
+</body>
+</html>

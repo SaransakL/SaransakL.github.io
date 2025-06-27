@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap');
+
+    * {
+        font-family: 'Prompt', sans-serif;
+    }
+
+    body {
+        color: #ffffff;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 0;
+        background-color: #000000;
+    }
+
+    #board {
+        display: grid;
+        grid-template-columns: repeat(5, 60px);
+        grid-template-rows: repeat(5, 60px);
+        gap: 5px;
+        margin-top: 20px;
+    }
+
+    .cell {
+        width: 60px;
+        height: 60px;
+        background-color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: 400;
+        border: 2px solid #ffffff;
+        color: #ffffff;
+        transition: 0.3s;
+    }
+
+    .cell.clicked {
+        background-color: green;
+        color: #ffffff;
+    }
+    
+    .cell:hover {
+        background-color: #ffffff;
+        color: #000000;
+        cursor: pointer;
+    }
+
+    .cell.bingo {
+        background-color: gold;
+        font-weight: 700;
+        color: #000000;
+    }
+
+    .button {
+        font-size: 18px;
+        padding: 10px;
+        margin-top: 10px;
+        border: none;
+        cursor: pointer;
+        color: white;
+        background-color: grey;
+    }
+
+    .button.red {
+        background-color: red;
+    }
+
+        .button.blue {
+        background-color: blue;
+    }
+
+    footer {
+        margin-top: 20px;
+    }
+
+    #randomNumber {
+        font-size: 24px;
+        margin-top: 10px;
+        color: blue;
+        font-weight: bold;
+    }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>เกม<span style="color: red">บิง</span><span style="color: gold">โก</span></h1>
+        <h2>หมายเลขที่สุ่ม: <span id="randomNumber">-</span></h2>
+        <button class="button blue" onclick="generateRandomNumber()">สุ่มเลข</button>
+        <button class="button red" onclick="generateRandomNumber()">ไม่มี</button>
+
+        <div id="board"></div>
+        <br>
+
+        <button class="button" id="restart" onclick="startGame()" style="display: none;">เริ่มใหม่</button>
+        <button class="button" onclick="startGame(), alert('หากคุณรีเซ็ตเลขในตารางใหม่ เลขที่คุณกดแล้ว จะหายไปด้วย')">รีเซ็ตเลขในตารางใหม่</button>
+
+        <footer>
+            <br>
+            <a href="/games"><button>เกมอื่นๆ</button></a> | 
+            <a href="https://forms.gle/XoWbDohMdHJEqsoB6" target="_blank"><button>ข้อเสนอแนะ</button></a> | 
+            <a href="donate" target="_blank"><button>สนับสนุนนักพัฒนา</button></a>
+            <p>Code by Saransak.</p>
+        </footer>
+    </div>
+
+    <script>
+        const board = document.getElementById('board');
+        let cells = [];
+        let boardNumbers = [];
+        let drawnNumbers = [];
+
+        function generateNumbers() {
+            let numbers = Array.from({ length: 75 }, (_, i) => i + 1);
+            numbers = numbers.sort(() => Math.random() - 0.5).slice(0, 25);
+            numbers[12] = "Free"; // ช่องกลางฟรี
+            return numbers;
+        }
+
+        function createBoard() {
+            board.innerHTML = '';
+            cells = [];
+            boardNumbers = generateNumbers();
+            drawnNumbers = [];
+
+            for (let i = 0; i < 25; i++) {
+                let cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.textContent = boardNumbers[i];
+                cell.dataset.index = i;
+
+                if (i === 12) {
+                    cell.classList.add('clicked'); // ช่องกลางฟรี
+                } else {
+                    cell.addEventListener('click', handleCellClick);
+                }
+
+                board.appendChild(cell);
+                cells.push(cell);
+            }
+
+            document.getElementById('randomNumber').textContent = "-";
+        }
+
+        function handleCellClick(event) {
+            const cell = event.target;
+            const drawnNumber = document.getElementById('randomNumber').textContent;
+
+            if (cell.textContent == drawnNumber) {
+                cell.classList.add('clicked');
+                checkBingo();
+            }
+        }
+
+        function generateRandomNumber() {
+            let availableNumbers = Array.from({ length: 75 }, (_, i) => i + 1).filter(n => !drawnNumbers.includes(n));
+
+            if (availableNumbers.length === 0) {
+                alert("เลขหมดแล้ว! รีสตาร์ทเกมใหม่.");
+                return;
+            }
+
+            let randomNumber = availableNumbers[Math.floor(Math.random() * availableNumbers.length)];
+            drawnNumbers.push(randomNumber);
+            document.getElementById('randomNumber').textContent = randomNumber;
+        }
+
+        function checkBingo() {
+            const winningPatterns = [
+                // แนวนอน
+                [0, 1, 2, 3, 4], [5, 6, 7, 8, 9], [10, 11, 12, 13, 14], 
+                [15, 16, 17, 18, 19], [20, 21, 22, 23, 24],
+
+                // แนวตั้ง
+                [0, 5, 10, 15, 20], [1, 6, 11, 16, 21], [2, 7, 12, 17, 22], 
+                [3, 8, 13, 18, 23], [4, 9, 14, 19, 24],
+
+                // แนวทแยง
+                [0, 6, 12, 18, 24], [4, 8, 12, 16, 20]
+            ];
+
+            for (let pattern of winningPatterns) {
+                if (pattern.every(index => cells[index].classList.contains('clicked'))) {
+                    pattern.forEach(index => cells[index].classList.add('bingo'));
+                    alert("ยินดีด้วย, คุณบิงโกแล้ว!");
+                    document.getElementById('restart').style.display = 'block';
+                    return;
+                }
+            }
+        }
+
+        function startGame() {
+            document.getElementById('restart').style.display = 'none';
+            createBoard();
+        }
+
+        startGame();
+    </script>
+</body>
+</html>
