@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ใส่กรอบโปรไฟล์</title>
+  <style>
+    * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: #f5f5f5; /* สีพื้นหลังอ่อน */
+  color: #222;              /* สีข้อความเข้ม */
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 16px;
+}
+
+label {
+  margin-top: 8px;
+  display: block;
+  font-size: 0.95em;
+  color: #555; /* สีข้อความ label อ่อนกว่า body */
+}
+
+.upload-area {
+  margin: 20px auto;
+  max-width: 500px;
+  padding: 40px;
+  border: 2px dashed #ccc;  /* ขอบเส้นประสีอ่อน */
+  background-color: #fff;   /* พื้นหลังสีขาว */
+  color: #666;              /* ข้อความสีเทากลาง */
+  font-size: 1em;
+  position: relative;
+  transition: 0.3s ease;
+}
+
+.upload-area.hover {
+  background-color: #e3f2fd; /* สีฟ้าอ่อนเวลาลากไฟล์ */
+  color: #1e88e5;            /* สีน้ำเงิน */
+  border-color: #1e88e5;
+  transform: scale(1.1);
+}
+
+.upload-btn-wrapper {
+  margin-top: 20px;
+}
+
+.upload-btn {
+  background-color: #1e88e5;
+  color: #fff;
+  padding: 12px 24px;
+  border: none;
+  font-size: 1em;
+  display: inline-block;
+  cursor: pointer;
+  transition: 0.2s ease;
+  transform: scale(1);
+}
+
+.upload-btn:hover {
+  background-color: #2196f3;
+  transform: scale(1.1);
+}
+
+.upload-btn:active {
+  background-color: #1976d2;
+  transform: scale(0.9);
+}
+
+.upload-btn-wrapper input[type="file"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
+button#download {
+  margin-top: 20px;
+  background-color: #1e88e5; /* เปลี่ยนเป็นปุ่มสีน้ำเงิน */
+  color: #fff;
+  padding: 12px 24px;
+  border: none;
+  font-size: 1em;
+  cursor: pointer;
+  transition: 0.2s ease;
+  transform: scale(1);
+}
+
+button#download:hover:not(:disabled) {
+  background-color: #1565c0;
+  transform: scale(1.1);
+}
+
+button#download:active:not(:disabled) {
+  transform: scale(0.9);
+}
+
+button#download:disabled {
+  background-color: #bbb;
+  color: #777;
+  cursor: not-allowed;
+}
+
+canvas {
+  display: block;
+  margin: 30px auto;
+  background-color: #fff; /* พื้นหลัง canvas เป็นสีขาว */
+  border: 2px solid #ccc; /* ขอบ canvas สีอ่อน */
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+@media (max-width: 600px) {
+  .upload-btn,
+  #download {
+    width: 100%;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="upload-area" id="drop-area">
+    ลากและวางรูปภาพที่นี่ หรือกด "เลือกไฟล์"
+    <div class="upload-btn-wrapper">
+      <button class="upload-btn">เลือกไฟล์</button>
+      <input type="file" id="upload" accept="image/png, image/jpeg, image/svg+xml">
+    </div>
+  </div>
+
+  <label for="upload">แนะนำให้อัปโหลดรูปที่เป็นอัตราส่วน 1:1 (.PNG, .JPEG, .SVG)</label>
+
+  <button id="download" disabled>ดาวน์โหลดภาพ</button>
+
+  <canvas id="canvas" width="500" height="500"></canvas>
+
+  <script>
+    const uploadInput = document.getElementById('upload');
+    const downloadBtn = document.getElementById('download');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const dropArea = document.getElementById('drop-area');
+
+    const FRAME_SRC = 'frame.png'; // ใส่ path กรอบ
+    const frameImage = new Image();
+    frameImage.src = FRAME_SRC;
+
+    function handleFile(file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const userImage = new Image();
+        userImage.onload = function () {
+          drawCroppedImage(userImage);
+        };
+        userImage.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    uploadInput.addEventListener('change', function () {
+      const file = uploadInput.files[0];
+      if (file) handleFile(file);
+    });
+
+    // Drag & Drop support
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropArea.addEventListener(eventName, e => {
+        e.preventDefault();
+        dropArea.classList.add('hover');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropArea.addEventListener(eventName, e => {
+        e.preventDefault();
+        dropArea.classList.remove('hover');
+      });
+    });
+
+    dropArea.addEventListener('drop', function (e) {
+      const dt = e.dataTransfer;
+      const file = dt.files[0];
+      if (file) handleFile(file);
+    });
+
+    function drawCroppedImage(img) {
+      const canvasSize = canvas.width;
+      ctx.clearRect(0, 0, canvasSize, canvasSize);
+
+      const { width, height } = img;
+      let sx, sy, sSize;
+      if (width > height) {
+        sSize = height;
+        sx = (width - height) / 2;
+        sy = 0;
+      } else {
+        sSize = width;
+        sx = 0;
+        sy = (height - width) / 2;
+      }
+
+      ctx.drawImage(img, sx, sy, sSize, sSize, 0, 0, canvasSize, canvasSize);
+
+      if (frameImage.complete) {
+        ctx.drawImage(frameImage, 0, 0, canvasSize, canvasSize);
+        downloadBtn.disabled = false;
+      } else {
+        frameImage.onload = function () {
+          ctx.drawImage(frameImage, 0, 0, canvasSize, canvasSize);
+          downloadBtn.disabled = false;
+        };
+      }
+    }
+
+    downloadBtn.addEventListener('click', function () {
+      const link = document.createElement('a');
+      link.download = 'profile-with-frame.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  </script>
+
+</body>
+</html>
