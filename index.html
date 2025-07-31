@@ -1,5 +1,187 @@
-<h1>กำลังทำเว็บใหม่จร้า</h1>
-<ul>
-  <li><a href="th-pfp.html">ทำโปรไฟล์ธงชาติไทย</a></li>
-  <li><a href="https://www.roblox.com/games/77761939203541">แมพ Roblox พ.พ.</a></li>
-</ul>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>สรันศักดิ์ เหลืองอ่อน</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@100;200;300;400;500;600;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "IBM Plex Sans Thai Looped", sans-serif;
+      transition: 0.5s ease;
+      user-select: none;
+    }
+
+    body, html {
+      height: 100%;
+      color: #151515;
+      background-color: #ffffff;
+    }
+
+    body.dark-mode {
+      background-color: #151515;
+      color: #ffffff;
+    }
+
+    .container {
+      display: flex;
+      min-height: 100vh;
+      animation: slideIn 1s ease;
+    }
+
+    .left {
+      width: 50%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .left img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+      border-radius: 100%;
+    }
+
+    .right {
+      margin-left: 0;
+      width: 50%;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    a {
+        color: #5555ff;
+    }
+
+    a:hover {
+        opacity: 0.2;
+    }
+
+    .info p {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+
+    .social-links {
+      margin-top: 30px;
+    }
+
+    .social-links a {
+      font-size: 1.5em;
+      margin-right: 15px;
+      color: #151515;
+      text-decoration: none;
+    }
+
+    .social-links:hover a {
+      opacity: 0.2;
+    }
+
+    .social-links a:hover {
+      opacity: 1 !important;
+    }
+
+    body.dark-mode .social-links a {
+      color: #ffffff;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      cursor: pointer;
+      z-index: 99;
+      color: #151515;
+    }
+
+    body.dark-mode .theme-toggle {
+      color: #fff;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .left {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+      }
+
+      .left img {
+        padding: 20px;
+        width: 100%;
+        height: auto;
+      }
+
+      .right {
+        width: 100%;
+        margin-left: 0;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+  <div class="container">
+    <div class="left">
+      <img src="profile-3.jpg" alt="ภาพโปรไฟล์ สรันศักดิ์ เหลืองอ่อน" />
+    </div>
+    <div class="right">
+      <h1>สรันศักดิ์ เหลืองอ่อน</h1>
+      <div class="info">
+        <p>ชื่อเล่น: <strong>เอ็กซ์</strong></p>
+        <p>วันเกิด: <strong>10 มกราคม พ.ศ. 2555</strong></p>
+        <p>อายุ: <strong>13 ปี</strong></p>
+        <p>การศึกษา: <strong>โรงเรียนพิษณุโลกพิทยาคม</strong></p>
+      </div>
+      <div class="social-links">
+        <a href="https://www.facebook.com/aek.saransak" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/saransak_l" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://x.com/Saransak_L" target="_blank" title="X (formerly Twitter)"><i class="fab fa-x-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const icon = toggleBtn.querySelector("i");
+      icon.classList.toggle("fa-moon");
+      icon.classList.toggle("fa-sun");
+    });
+  </script>
+</body>
+</html>
