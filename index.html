@@ -27,9 +27,10 @@
       color: #ffffff;
     }
 
-
     .container {
+      justify-content: center;
       display: flex;
+      height: 100vh;
     }
 
     .left {
@@ -39,7 +40,7 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      animation: slideLeftIn 2s ease;
+      animation: slideLeft 3s ease;
     }
 
     .left img {
@@ -56,7 +57,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      animation: slideTopIn 2s ease;
+      animation: slideTop 3s ease;
     }
 
     h1 {
@@ -69,23 +70,13 @@
         color: #5555ff;
     }
 
-    a:hover {
-        opacity: 0.2;
-    }
-
-    .info p {
-      font-size: 1.1em;
-      margin-bottom: 10px;
-    }
-
     .social-links {
-      margin-top: 30px;
+      margin: 10px;
     }
 
     .social-links a {
-      font-size: 3.5em;
-      margin-left: 15px;
-      margin-right: 15px;
+      font-size: 2em;
+      margin: 10px;
       text-decoration: none;
       color: #151515;
     }
@@ -124,6 +115,7 @@
       padding-bottom: 50px;
       animation: fadeIn 3s ease;
     }
+
     .back-to-top {
       position: fixed;
       bottom: 30px;
@@ -132,7 +124,7 @@
       background-color: #151515;
       color: #ffffff;
       border: none;
-      border-radius: 50%;
+      border-radius: 100%;
       width: 50px;
       height: 50px;
       font-size: 2em;
@@ -140,29 +132,50 @@
       display: none;
       align-items: center;
       justify-content: center;
-  }
-
-  body.dark-mode .back-to-top {
-    background-color: #ffffff;
-    color: #151515;
-  }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
     }
 
-    @keyframes zoomIn {
-      from { transform: scale(0.75); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+    body.dark-mode .back-to-top {
+      background-color: #ffffff;
+      color: #151515;
     }
 
-    @keyframes slideLeftIn {
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 35px;
+      margin: 20px;
+      padding: 0 20px;
+    }
+
+    .project-card {
+      background: #f5f5f5;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .project-card:active {
+      transform: scale(0.9);
+    }
+
+    .project-card img {
+      width: 100%;
+      display: block;
+    }
+
+    .project-card .project-details {
+      padding: 12px 16px;
+    }    
+
+    body.dark-mode .project-card {
+      background: #202020;
+    }
+
+    @keyframes slideLeft {
       from { transform: translateX(-750px); opacity: 0; }
       to { transform: translateX(0); opacity: 1; }
     }
 
-    @keyframes slideTopIn {
+    @keyframes slideTop {
       from { transform: translateY(-750px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
@@ -176,7 +189,7 @@
         width: 100%;
         height: auto;
         padding: 10px;
-        animation: slideTopIn 2s ease;
+        animation: slideTop 3s ease;
       }
 
       .left img {
@@ -190,88 +203,96 @@
         margin-left: 0;
         padding: 20px;
         text-align: center;
-        animation: slideLeftIn 2s ease;
+        animation: slideLeft 3s ease;
       }
 
       h1 {
         font-size: 3.5em;
       }
-
-      .social-links a {
-        font-size: 3em;
-        margin-left: 10px;
-        margin-right: 10px;
-      }
     }
   </style>
 </head>
 <body>
-<button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+  <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+
   <div class="container">
     <section class="left">
-      <img src="profile-3.jpg" width="400px"/>
+      <img src="profile-3.jpg" width="400px" alt="Profile picture of Saransak Lueangoon" />
     </section>
     <section class="right">
       <h1>Saransak<br>Lueangoon</h1>
     </section>
   </div>
 
-  <section class="contents" id="info">
-    <h1>Information</h1>
-    <p>Nickname: <strong>Aek</strong></p>
-    <p>Born: <strong>January 10, 2012</strong></p>
-    <p>Nationality: <strong>Thai</strong></p>
-    <p>Age: <strong>13</strong></p>
-    <p>Education: <strong>Phitsanulok Pittayakom</strong></p>
-    <p>Status: <strong>Single</strong></p>
+  <section class="contents" id="about">
+    <h1>About</h1>
+    <p>I'm a game developer sharing my latest projects and creative ideas.</p>
   </section>
 
   <section class="contents" id="project">
     <h1>Projects</h1>
-    <i>Not Found.</i>
+    <div class="project-grid">
+      <!--แมพ พ.พ-->
+      <div class="project-card" onclick="window.location.href='roblox://placeID=77761939203541'">
+        <img src="https://t5.rbxcdn.com/180DAY-c239841c976f825fcf18284efdd1955a">
+        <div class="project-details">
+          <h2>พิษณุโลกพิทยาคม</h2>
+        </div>
+      </div>
+      <!--placehold-->
+      <div class="project-card" onclick="window.location.href=''">
+        <img src="http://placehold.co/1920x1080">
+        <div class="project-details">
+          <h2>Test</h2>
+        </div>
+      </div>
+      <!--placehold-->
+      <div class="project-card" onclick="window.location.href=''">
+        <img src="http://placehold.co/1920x1080">
+        <div class="project-details">
+          <h2>Test</h2>
+        </div>
+      </div>
   </section>
 
-  <section class="contents" id="follow">
-    <h1>Follow Me</h1>
+  <footer class="contents" id="footer">
     <div class="social-links">
-      <a href="" class="fab fa-instagram"></a>
-      <a href="" class="fab fa-facebook"></a>
-      <a href="" class="fab fa-x-twitter"></a>
-      <a href="" class="fab fa-tiktok"></a>
-      <a href="" class="fab fa-bluesky"></a>
+      <a href="#" class="fab fa-instagram" aria-label="Instagram"></a>
+      <a href="#" class="fab fa-facebook" aria-label="Facebook"></a>
+      <a href="#" class="fab fa-x-twitter" aria-label="X / Twitter"></a>
+      <a href="#" class="fab fa-tiktok" aria-label="TikTok"></a>
+      <a href="#" class="fab fa-bluesky" aria-label="Bluesky"></a>
     </div>
-  </section>
+    <p>&copy; 2025 Saransak</p>
+  </footer>
 
   <button id="backToTop" class="back-to-top"><i class="fas fa-arrow-up"></i></button>
 
   <script>
-  const toggleBtn = document.getElementById('themeToggle');
-  toggleBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    const icon = toggleBtn.querySelector("i");
-    icon.classList.toggle("fa-moon");
-    icon.classList.toggle("fa-sun");
-  });
-
-  const backToTopBtn = document.getElementById("backToTop");
-
-  // แสดงหรือซ่อนปุ่มเมื่อ scroll เกิน 100px
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 100) {
-      backToTopBtn.style.display = "flex";
-    } else {
-      backToTopBtn.style.display = "none";
-    }
-  });
-
-  // เลื่อนกลับไปบนสุดอย่างนุ่มนวล
-  backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const icon = toggleBtn.querySelector("i");
+      icon.classList.toggle("fa-moon");
+      icon.classList.toggle("fa-sun");
     });
-  });
-</script>
 
+    const backToTopBtn = document.getElementById("backToTop");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 100) {
+        backToTopBtn.style.display = "flex";
+      } else {
+        backToTopBtn.style.display = "none";
+      }
+    });
+
+    backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  </script>
 </body>
 </html>
