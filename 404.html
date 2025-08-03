@@ -1,49 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>404 Not Found</title>
+  <title>Saransak Lueangoon</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@100;200;300;400;500;600;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
 
-    body {
+    * {
       margin: 0;
-      background-color: #000000;
-      color: #ffffff;
-      font-family: 'Jost', sans-serif;
-      display: flex;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "IBM Plex Sans Thai Looped", sans-serif;
+      transition: 0.5s ease;
+      user-select: none;
+    }
+
+    body, html {
+      color: #151515;
+      background-color: #ffffff;
+    }
+
+    .container {
       justify-content: center;
-      align-items: center;
-      flex-direction: column;
+      display: flex;
       height: 100vh;
-      text-align: center;
+    }
+
+    .left {
+      width: 50%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: slideLeft 3s ease;
+    }
+
+    .left img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+      border-radius: 100%;
+    }
+
+    .right {
+      margin-left: 0;
+      width: 50%;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      animation: slideTop 3s ease;
     }
 
     h1 {
-      font-size: 4rem;
-      color: #e10000;
-      margin: 0;
-      font-weight: normal;
+      font-size: 6em;
       line-height: 0.8;
     }
 
-    a {
-      color: #007fff;
-      text-decoration: none;
-      font-size: 1.2rem;
-      border: 2px solid #007fff;
-      padding: 5px 10px;
-      transition: 0.3s;
+    @keyframes slideLeft {
+      from { transform: translateX(-750px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
 
-    a:hover {
-      background-color: #007fff;
-      color: #000000;
+    @keyframes slideTop {
+      from { transform: translateY(-750px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .left {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+        animation: slideTop 3s ease;
+      }
+
+      .left img {
+        padding: 20px;
+        width: 100%;
+        height: auto;
+      }
+
+      .right {
+        width: 100%;
+        margin-left: 0;
+        padding: 20px;
+        text-align: center;
+        animation: slideLeft 3s ease;
+      }
+
+      h1 {
+        font-size: 3.5em;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Oh Noez!</h1>
+  <div class="container">
+    <section class="left">
+      <img src="https://cdn0.iconfinder.com/data/icons/shift-free/32/Error-512.png" width="400px"/>
+    </section>
+    <section class="right">
+      <h1 style="color: #d72828;">Oh Noez!</h1>
+      <h2>This page could not be found.</h2>
+      <br>
+      <p>Returning to home in <span id="countdown">5</span>...</p>
+    </section>
+  </div>
+
+  <script>
+  let seconds = 5;
+  const countdownEl = document.getElementById("countdown");
+
+  const timer = setInterval(() => {
+    seconds--;
+    countdownEl.textContent = seconds;
+    if (seconds <= 0) {
+      clearInterval(timer);
+      window.location.href = "/";
+    }
+  }, 1000);
+</script>
 </body>
 </html>
