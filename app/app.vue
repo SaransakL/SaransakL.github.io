@@ -129,7 +129,7 @@ body {
 
 header {
   text-align: center;
-  padding: 20px;
+  padding: 30px 0px 20px;
 }
 
 .logo {
