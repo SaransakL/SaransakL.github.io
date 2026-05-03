@@ -18,7 +18,6 @@
       <div class="section-title">about me</div>
 
       <div class="about-container">
-        <img src="/assets/profile.jpg" alt="profile" class="about-img" />
 
         <div class="about-text">
           <h2>Hi, I'm Saransak</h2>
@@ -38,6 +37,7 @@
             <span><i class="bi bi-heart"></i> Single</span>
             <span><i class="bi bi-gender-male"></i> Male</span>
           </div>
+
         </div>
       </div>
     </section>
@@ -173,14 +173,8 @@ section {
   flex-wrap: wrap;
 }
 
-.about-img {
-  width: 300px;
-  border-radius: 100%;
-  aspect-ratio: 1/1;
-}
-
 .about-text {
-  max-width: 600px;
+  max-width: 800px;
 }
 
 .about-text h2 {
@@ -201,11 +195,16 @@ section {
   display: inline-block;
   background: #111;
   border: 1px solid #333;
-  padding: 8px 14px;
+  padding: 8px 15px;
   border-radius: 999px;
   margin-right: 5px;
   margin-bottom: 10px;
   font-size: 15px;
+  user-select: none;
+}
+
+.about-tags span i {
+  margin-right: 3px;
 }
 
 .contact-form {
@@ -311,11 +310,6 @@ footer {
     flex-direction: column;
     gap: 30px;
     align-items: flex-start;
-  }
-
-  .about-img {
-    width: 80%;
-    margin: 40px;
   }
 
   .about-text h2 { font-size: 32px; }
