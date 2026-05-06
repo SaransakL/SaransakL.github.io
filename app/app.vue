@@ -22,20 +22,28 @@
         <div class="about-text">
           <h2>Hi, I'm Saransak</h2>
 
-        <p>
-          I'm a Roblox game developer who enjoys designing games and experimenting with ideas.
-        </p>
+          <div class="about-tags">
+            <span title="Country"><i class="bi bi-globe2"></i> Thailand</span>
+            <span title="Living Place"><i class="bi bi-house"></i> Phitsanulok</span>
+            <span title="Birth Place"><i class="bi bi-geo-alt"></i> Saraburi</span>
+            <span title="Birthday"><i class="bi bi-cake"></i> 10 Jan 2012</span>
+            <span title="Status"><i class="bi bi-heart"></i> Single</span>
+            <span title="Gender"><i class="bi bi-gender-male"></i> Male</span>
+          </div>
 
-        <p>
-          Currently, I'm still in the "building and learning" phase. so no major projects yet, but something cool is definitely on the way!
-        </p>
+          <p>
+            I'm a Roblox game developer who enjoys designing games and experimenting with ideas.
+          </p>
+
+          <p>
+            Currently, I'm still in the "building and learning" phase. so no major projects yet, but something cool is definitely on the way!
+          </p>
+
+          <h2>My Devices</h2>
 
           <div class="about-tags">
-            <span><i class="bi bi-globe2"></i> Thailand</span>
-            <span><i class="bi bi-house"></i> Phitsanulok</span>
-            <span><i class="bi bi-cake"></i> 10 Jan 2012</span>
-            <span><i class="bi bi-heart"></i> Single</span>
-            <span><i class="bi bi-gender-male"></i> Male</span>
+            <span title="Laptop"><i class="bi bi-laptop"></i> MSI Thin 15 B12UCX-1428TH</span>
+            <span title="Mobile Phone"><i class="bi bi-apple"></i> iPhone 11</span>
           </div>
 
         </div>
@@ -144,10 +152,11 @@ nav a {
   margin: 0 15px;
   letter-spacing: -0.05em;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 nav a:hover {
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
 section {
@@ -194,7 +203,7 @@ section {
 .about-tags span {
   display: inline-block;
   background: #111;
-  border: 1px solid #333;
+  border: 2px solid #333;
   padding: 8px 15px;
   border-radius: 999px;
   margin-right: 5px;
@@ -218,7 +227,7 @@ section {
 .contact-form input,
 .contact-form textarea {
   background: #111;
-  border: 1px solid #333;
+  border: 2px solid #333;
   padding: 14px;
   border-radius: 10px;
   color: var(--white);
@@ -256,15 +265,19 @@ footer {
 
 .work-card {
   background: #111;
-  border: 1px solid #333;
+  border: 2px solid #333;
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
   transition: 0.2s;
 }
 
-.work-card:hover {
-  transform: scale(1.1);
+.works-grid:hover .work-card {
+  opacity: 0.5;
+}
+
+.works-grid .work-card:hover {
+  opacity: 1;
 }
 
 .work-card img {
