@@ -12,7 +12,7 @@
       </nav>
     </header>
 
-    <img src="/assets/profile.jpg" alt="hero" class="hero">
+    <div class="hero"></div>
 
     <section id="about">
       <div class="section-title">about me</div>
@@ -25,7 +25,7 @@
           <div class="about-tags">
             <span title="Country"><i class="bi bi-globe2"></i> Thailand</span>
             <span title="Living Place"><i class="bi bi-house"></i> Phitsanulok</span>
-            <span title="Birth Place"><i class="bi bi-geo-alt"></i> Saraburi</span>
+            <span title="Birth Place"><i class="bi bi-geo-alt"></i> Ayutthaya</span>
             <span title="Birthday"><i class="bi bi-cake"></i> 10 Jan 2012</span>
             <span title="Status"><i class="bi bi-heart"></i> Single</span>
             <span title="Gender"><i class="bi bi-gender-male"></i> Male</span>
@@ -55,13 +55,24 @@
 
       <div class="works-grid">
 
+        <a href="https://www.roblox.com/games/77761939203541" target="_blank" class="work-card">
+          <img src="/assets/pp-thumb.png" alt="project">
+
+          <div class="work-info">
+            <h3>Phitsanulok Pittayakom</h3>
+            <p>
+              A replica of Phitsanulok Pittayakom School on Roblox.
+            </p>
+          </div>
+        </a>
+
         <div class="work-card">
           <img src="https://placehold.co/1920x1080" alt="project">
 
           <div class="work-info">
             <h3>Placeholder</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit.
+              Lorem ipsum dolor sit amet.
             </p>
           </div>
         </div>
@@ -72,18 +83,7 @@
           <div class="work-info">
             <h3>Placeholder</h3>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit.
-            </p>
-          </div>
-        </div>
-
-        <div class="work-card">
-          <img src="https://placehold.co/1920x1080" alt="project">
-
-          <div class="work-info">
-            <h3>Placeholder</h3>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit.
+              Lorem ipsum dolor sit amet.
             </p>
           </div>
         </div>
@@ -124,6 +124,7 @@ useHead({
 
 :root {
   --primary-blue: #007fff;
+  --danger: #e10000;
   --white: #fff;
   --black: #000;
 }
@@ -166,7 +167,11 @@ section {
 .hero {
   width: 100%;
   height: 600px;
-  object-fit: cover;
+  background-image: url('/assets/profile.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .section-title {
@@ -203,7 +208,7 @@ section {
 .about-tags span {
   display: inline-block;
   background: #111;
-  border: 2px solid #333;
+  border: 2px solid #222;
   padding: 8px 15px;
   border-radius: 999px;
   margin-right: 5px;
@@ -227,12 +232,14 @@ section {
 .contact-form input,
 .contact-form textarea {
   background: #111;
-  border: 2px solid #333;
+  border: 2px solid #222;
   padding: 14px;
   border-radius: 10px;
   color: var(--white);
   font-size: 16px;
   outline: none;
+  transition: 0.2s;
+  resize: none;
 }
 
 .contact-form input:focus,
@@ -265,11 +272,13 @@ footer {
 
 .work-card {
   background: #111;
-  border: 2px solid #333;
+  border: 2px solid #222;
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
   transition: 0.2s;
+  text-decoration: none;
+  color: var(--white);
 }
 
 .works-grid:hover .work-card {
