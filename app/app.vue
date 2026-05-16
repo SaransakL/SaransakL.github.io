@@ -27,8 +27,8 @@
             <span title="Living Place"><i class="bi bi-house"></i> Phitsanulok</span>
             <span title="Birth Place"><i class="bi bi-geo-alt"></i> Ayutthaya</span>
             <span title="Birthday"><i class="bi bi-cake"></i> 10 Jan 2012</span>
-            <span title="Status"><i class="bi bi-heart"></i> Single</span>
-            <span title="Gender"><i class="bi bi-gender-male"></i> Male</span>
+            <span title="Status"><i class="bi bi-heart-fill" style="color: #007fff;"></i> In a relationship with Stamp</span>
+            <span title="Gender"><i class="bi bi-gender-male"></i> Bisexual</span>
           </div>
 
           <p>
@@ -55,7 +55,7 @@
 
       <div class="works-grid">
 
-        <a href="https://www.roblox.com/games/77761939203541" target="_blank" class="work-card">
+        <a href="https://pp-rblx.vercel.app/" target="_blank" class="work-card">
           <img src="/assets/pp-thumb.png" alt="project">
 
           <div class="work-info">
@@ -171,7 +171,6 @@ section {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
 }
 
 .section-title {
