@@ -128,7 +128,7 @@ useHead({
   --primary-blue: #007fff;
   --danger: #e10000;
   --white: #fff;
-  --black: #000;
+  --black: #111;
 }
 
 body {
