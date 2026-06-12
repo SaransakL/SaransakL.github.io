@@ -27,8 +27,8 @@
             <span title="Living Place"><i class="bi bi-house"></i> Phitsanulok</span>
             <span title="Birth Place"><i class="bi bi-geo-alt"></i> Ayutthaya</span>
             <span title="Birthday"><i class="bi bi-cake"></i> 10 Jan 2012</span>
-            <span title="Status"><i class="bi bi-heart-fill" style="color: #007fff;"></i> In a relationship with Stamp</span>
-            <span title="Gender"><i class="bi bi-gender-male"></i> Bisexual</span>
+            <span title="Status"><i class="bi bi-heart"></i> Single</span>
+            <span title="Gender"><i class="bi bi-gender-male"></i> Male</span>
           </div>
 
           <p>
@@ -104,7 +104,9 @@
     </section>
 
     <footer>
-      <p>© 2026 Saransak - All rights reserved.</p>
+      <p>
+      © 2026 Saransak - All rights reserved.
+      </p>
     </footer>
   </div>
 </template>
@@ -242,7 +244,9 @@ section {
 }
 
 .contact-form input:focus,
-.contact-form textarea:focus {
+.contact-form textarea:focus,
+.contact-form input:hover,
+.contact-form textarea:hover  {
   border-color: #fff;
 }
 
@@ -256,6 +260,15 @@ section {
   cursor: pointer;
   font-size: 30px;
   letter-spacing: -0.05em;
+  transition: 0.2s;
+}
+
+.contact-form button:hover {
+  opacity: 0.5;
+}
+
+.contact-form button:active {
+  opacity: 1;
 }
 
 footer {
